@@ -9,17 +9,17 @@ class assign1:
                 self.y_test = np.load('y_test.npy')
                 self.y_train = np.load('y_train.npy')
 
-                self.w = np.random.rand(1,10)
+                self.w = np.random.rand(100,1)
                 self.a = 0.3 #Learning rate
 
-        def plotGraph(self, xdata, ydata):
-                plt.figure()
-                plt.plot(xdata, ydata)
-                plt.xlabel('Iterations')
-                plt.ylabel('Magnitude')
-                plt.title('Magnitude vs Iterations')
+        def plotGraph(self, xdata, ydata, title, xlabel, ylabel, fileN):
+                plt.figure(figsize=[18, 12])
+                plt.plot(xdata, ydata, 'o')
+                plt.xlabel(xlabel)
+                plt.ylabel(ylabel)
+                plt.title(title)
                 plt.show()
-                plt.savefig()
+                plt.savefig(fileN)
         
         def hypothesis(self, xdata):
                 for i in range(len(self.w)):
@@ -32,20 +32,10 @@ class assign1:
         def gradientDescent(self,xdata, ydata):
                 for j in range(len(self.w)):
                         self.w[j] = self.w[j] + self.a * (ydata[j] - self.h[j]) * xdata[j]
-        
-        def baseFunctions(self, xdata, sel):
-                
-        
-
-        def problem1(self):
-
-        def problem2(self):
-
-        def problem3(self):
 
 if __name__ == '__main__':
         a1 = assign1()
 
-        a1.problem1()
-        a1.problem2()
-        a1.problem3()
+        a1.plotGraph(a1.x_train, a1.y_train, 'Initial Test', 'x', 'y', 'init.png')
+
+        print(a1.x_test)
