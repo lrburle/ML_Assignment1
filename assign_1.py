@@ -71,9 +71,16 @@ if __name__ == '__main__':
         
         plt.show()
 
-        [x_train, y_train, x_test, y_test] = a1.csv_parse('Assignment1_Q2_Data.csv')
+        #Testing the model for Question 1
 
-        print(x_train)
+        
+        
+        
+        #Question 2
+ 
+ 
+ 
+	#Updating the data for Question 2 from the CSV file. 
+        [a1.x_train, a1.y_train, a1.x_test, a1.y_test] = a1.csv_parse('Assignment1_Q2_Data.csv')
 
-
-
+        #Question 3
