@@ -47,6 +47,11 @@ class assign1:
                 out[:,0] = data[:, 0] ** order
                 return np.concatenate((data, out), axis=1) 
         
+        def concatOnes(self, data):
+                [x,y] = data.shape
+                out = np.ones((x, 1))
+                return np.concatenate((out, data), axis=1)
+        
         def csvParse(self, csvFile):
                 file = open(csvFile, 'rb')
                 file = file.readlines()[1:]
@@ -87,8 +92,10 @@ if __name__ == '__main__':
         #Training the model for assignment 1
         plt.figure()
 
+
         a1.x_train = a1.polynomialBasis(a1.x_train, 2) #Input data with the order desired to be concatenated into the original dataset.
         a1.x_train = a1.polynomialBasis(a1.x_train, 3) #Input data with the order desired to be concatenated into the original dataset.
+        a1.x_train = a1.concatOnes(a1.x_train) #Input data with the order desired to be concatenated into the original dataset.
 
         [n, m] = a1.x_train.shape
 
