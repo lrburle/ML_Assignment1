@@ -2,10 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 class assign1:
         def __init__(self):
-                self.x_test = np.load('x_test.npy')
-                self.x_train = np.load('x_train.npy')
-                self.y_test = np.load('y_test.npy')
-                self.y_train = np.load('y_train.npy')
 
                 self.a = 0.5 #Learning rate
 
@@ -87,32 +83,46 @@ class assign1:
 if __name__ == '__main__':
         a1 = assign1()
 
-        a1.plotGraph(a1.x_train, a1.y_train, 'Initial Test', 'x', 'y')
+        x_test = np.load('x_test.npy')
+        x_train = np.load('x_train.npy')
+        y_test = np.load('y_test.npy')
+        y_train = np.load('y_train.npy')
+
+        a1.plotGraph(x_train, y_train, 'Initial Test', 'x', 'y')
 
         #Training the model for assignment 1
         plt.figure()
 
+        x_train = a1.polynomialBasis(x_train, 2) #Input data with the order desired to be concatenated into the original dataset.
+        x_train = a1.polynomialBasis(x_train, 3) #Input data with the order desired to be concatenated into the original dataset.
+        x_train = a1.concatOnes(x_train) #Input data with the order desired to be concatenated into the original dataset.
 
-        a1.x_train = a1.polynomialBasis(a1.x_train, 2) #Input data with the order desired to be concatenated into the original dataset.
-        a1.x_train = a1.polynomialBasis(a1.x_train, 3) #Input data with the order desired to be concatenated into the original dataset.
-        a1.x_train = a1.concatOnes(a1.x_train) #Input data with the order desired to be concatenated into the original dataset.
+        [n, m] = x_train.shape
 
-        [n, m] = a1.x_train.shape
-
+	#Initialize the Parameters based upon the dimensionality of the training dataset
         a1.init_theta(1, m)
 
+
+        print(f'Initialzed theta array is: {a1.theta}')
+
         for j in range(m):
+                print(f'Feature set selection: {j}')
                 for i in range(n):
-                        a1.gradientDescent(a1.x_train[i], a1.y_train[i], j)
+                        a1.gradientDescent(x_train[i], y_train[i], j)
+        
+        print(f'Theta array after training: {a1.theta}')
 
         #Testing the model for Question 1
-        a1.x_test = a1.polynomialBasis(a1.x_test, 2) #Input data with the order desired to be concatenated into the original dataset.
-        a1.x_test = a1.polynomialBasis(a1.x_test, 3) #Input data with the order desired to be concatenated into the original dataset.
+        x_test = a1.polynomialBasis(a1.x_test, 2) #Input data with the order desired to be concatenated into the original dataset.
+        x_test = a1.polynomialBasis(a1.x_test, 3) #Input data with the order desired to be concatenated into the original dataset.
+        x_test = a1.concatOnes(a1.x_test) #Input data with the order desired to be concatenated into the original dataset.
+
+	# Collect the prediction error for each point in the test data set.
         e = []
 
         for i in range(n):
-                y = a1.hypothesis(a1.x_test[i])
-                e.append(a1.predictionError(a1.y_test[i], y))
+                y = a1.hypothesis(x_test[i])
+                e.append(a1.predictionError(y_test[i], y))
         
         x = np.linspace(1, n)
 
@@ -123,6 +133,7 @@ if __name__ == '__main__':
         #Question 2
  
 	#Updating the data for Question 2 from the CSV file. 
-        [a1.x_train, a1.y_train, a1.x_test, a1.y_test] = a1.csvParse('Assignment1_Q2_Data.csv')
+        [x_train, y_train, x_test, y_test] = a1.csvParse('Assignment1_Q2_Data.csv')
+
 
         #Question 3
