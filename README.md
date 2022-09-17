@@ -5,7 +5,7 @@ numpy
 matplotlib
 csv
 
-Included at the top of the Jupyter Notebook are the required modules already included:
+Included at the top of the Jupyter Notebook are the required modules:
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
